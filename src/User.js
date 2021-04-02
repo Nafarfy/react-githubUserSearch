@@ -23,8 +23,7 @@ class User extends Component {
       });
   };
 
-  onUserSubmit = (e) => {
-    e.preventDefault();
+  onUserSubmit = () => {
     const userId = document.querySelector(".name-form-input").value;
 
     this.fetchUser(userId);
