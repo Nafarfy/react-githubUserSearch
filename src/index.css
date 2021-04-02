@@ -12,12 +12,11 @@ body {
   height: 100vh;
   font-size: 4rem;
   font-weight: bold;
+  padding: 1rem;
 }
-/* 
-#root {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+/* #root {
+  padding: 1rem;
 } */
 
 .user {
@@ -81,4 +80,11 @@ body {
 
 .name-form-btn:hover {
   background: #0065c4;
+}
+
+@media (max-width: 768px) {
+  .avatar {
+    width: 220px;
+    height: 220px;
+  }
 }
