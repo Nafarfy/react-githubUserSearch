@@ -11,6 +11,7 @@ class User extends Component {
 
   state = {
     user: this.defaultUser,
+    value: "",
   };
 
   fetchUser = (userId) => {
@@ -23,11 +24,14 @@ class User extends Component {
       });
   };
 
+  handleChange = (e) => {
+    this.setState({ value: e.target.value });
+  };
+
   onUserSubmit = (e) => {
     e.preventDefault();
-    const userId = document.querySelector(".name-form-input").value;
 
-    this.fetchUser(userId);
+    this.fetchUser(this.state.value);
   };
 
   render() {
@@ -46,9 +50,15 @@ class User extends Component {
             <span className="user-location">{location}</span>
           </div>
         </div>
-        <form className="name-form">
-          <input type="text" className="name-form-input" placeholder="Any GitHub User" />
-          <button type="submit" onClick={this.onUserSubmit} className="name-form-btn">
+        <form className="name-form" onClick={this.onUserSubmit}>
+          <input
+            type="text"
+            onChange={this.handleChange}
+            value={this.state.value}
+            className="name-form-input"
+            placeholder="Any GitHub User"
+          />
+          <button type="submit" className="name-form-btn">
             Search
           </button>
         </form>
