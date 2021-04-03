@@ -5,86 +5,114 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 1rem;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  font-size: 4rem;
-  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+}
+
+.user {
+  border-radius: 10px;
+  box-shadow: 0px 0px 26px -3px #000000;
   padding: 1rem;
 }
 
-/* #root {
-  padding: 1rem;
-} */
+.avatarUrl {
+  display: block;
+  overflow: hidden;
+  border-radius: 50%;
+  width: 320px;
+  height: 320px;
+}
 
-.user {
-  font-size: 24px;
-  text-align: center;
-  border: 2px solid #0084ff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0px 0px 26px -3px #000000;
+.avatarUrl:hover .avatar {
+  transform: scale(1.1);
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
-}
-
-.avatar {
-  width: 320px;
-  height: 320px;
-  border-radius: 50%;
+  text-align: center;
+  padding: 1rem;
 }
 
 .user-name {
-  padding: 5px 0;
-  font-weight: 700;
-  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: blue;
+  transition: color 0.5s;
 }
 
 .user-name:hover {
-  color: #002f5a;
+  color: #00008b;
 }
 
 .user-location {
-  font-size: 1.1rem;
-}
-
-.name-form {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: space-between;
+  font-size: 1.2rem;
+  color: #181818;
 }
 
 .name-form-input {
-  padding: 7px 5px;
-  font-size: 1.2rem;
-  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px 10px;
+  width: 75%;
 }
 
 .name-form-btn {
+  font-size: 1rem;
+  padding: 10px 10px;
+  width: 25%;
+  margin-top: 1rem;
   background: none;
-  color: #fff;
-  border: 1px solid #0084ff;
-  font-size: 1.2rem;
-  background: #0084ff;
-  border-radius: 5px;
-  padding: 7px 5px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
 .name-form-btn:hover {
-  background: #0065c4;
+  background: #f3f3f3;
 }
 
 @media (max-width: 768px) {
-  .avatar {
-    width: 220px;
-    height: 220px;
+  body {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .user {
+    box-shadow: none;
+    padding: none;
+  }
+
+  .avatarUrl {
+    width: 100%;
+  }
+
+  .avatarUrl:hover .avatar {
+    transform: none;
+  }
+}
+
+@media (max-height: 375px) {
+  body {
+    height: 100%;
+  }
+
+  .avatarUrl {
+    width: 320px;
   }
 }

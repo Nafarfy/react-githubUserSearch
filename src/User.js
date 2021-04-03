@@ -3,9 +3,9 @@ import "./index.css";
 
 class User extends Component {
   defaultUser = {
-    name: "",
+    name: "Github",
     location: "",
-    avatar_url: "https://img.devrant.com/devrant/rant/r_1954098_g4565.jpg",
+    avatar_url: "https://avatars.githubusercontent.com/u/9919?v=4",
     html_url: "https://github.com",
   };
 
@@ -40,14 +40,14 @@ class User extends Component {
             <img src={avatar_url || this.defaultUser.avatar_url} alt="avatar" className="avatar" />
           </a>
           <div className="user-info">
-            <a href={html_url} target="_blank" className="user-name">
-              {name}
+            <a href={html_url || this.defaultUser.html_url} target="_blank" className="user-name">
+              {name || this.defaultUser.name}
             </a>
             <span className="user-location">{location}</span>
           </div>
         </div>
         <form className="name-form">
-          <input type="text" className="name-form-input" />
+          <input type="text" className="name-form-input" placeholder="Any GitHub User" />
           <button type="submit" onClick={this.onUserSubmit} className="name-form-btn">
             Search
           </button>
