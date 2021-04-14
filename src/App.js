@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import User from "./User";
+import "./index.css";
 
 const App = () => {
   return <User />;

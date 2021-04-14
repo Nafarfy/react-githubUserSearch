@@ -1,70 +1,91 @@
-import React, { Component } from "react";
-import "./index.css";
+import React, { useState, useEffect } from "react";
+import { fetchUser } from "./api/fetchUser";
+import { UserEmptyPreview, UserError, UserPreview } from "./userPreviews/UserPreviews";
+import { SearchForm } from "./searchForm/SearchForm";
+import { Preloader } from "./preloader/Preloader";
 
-class User extends Component {
-  defaultUser = {
-    name: "Github",
-    location: "",
-    avatar_url: "https://avatars.githubusercontent.com/u/9919?v=4",
-    html_url: "https://github.com",
-  };
+const User = () => {
+  const [state, setState] = useState({
+    type: "not_requested",
+  });
+  const [inputValue, setInputValue] = useState("");
 
-  state = {
-    user: this.defaultUser,
-    value: "",
-  };
-
-  fetchUser = (userId) => {
-    fetch(`https://api.github.com/users/${userId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          user: data,
+  useEffect(() => {
+    if (state.type === "loading") {
+      fetchUser(state.params.name)
+        .then((data) => {
+          setState({
+            type: "loaded",
+            user: data,
+          });
+        })
+        .catch((e) => {
+          setState({
+            type: "error",
+            error: `${e}`,
+          });
         });
-      });
+    }
+  }, [state]);
+
+  const onSearchSubmit = () => {
+    setState({
+      type: "loading",
+      params: {
+        name: inputValue,
+      },
+    });
   };
 
-  handleChange = (e) => {
-    this.setState({ value: e.target.value });
-  };
-
-  onUserSubmit = (e) => {
-    e.preventDefault();
-
-    this.fetchUser(this.state.value);
-  };
-
-  render() {
-    const { avatar_url, name, location, html_url } = this.state.user;
-
-    return (
-      <>
-        <div className="user">
-          <a href={html_url || this.defaultUser.html_url} target="_blank" className="avatarUrl">
-            <img src={avatar_url || this.defaultUser.avatar_url} alt="avatar" className="avatar" />
-          </a>
-          <div className="user-info">
-            <a href={html_url || this.defaultUser.html_url} target="_blank" className="user-name">
-              {name || this.defaultUser.name}
-            </a>
-            <span className="user-location">{location}</span>
-          </div>
-        </div>
-        <form className="name-form" onClick={this.onUserSubmit}>
-          <input
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.value}
-            className="name-form-input"
-            placeholder="Any GitHub User"
+  switch (state.type) {
+    case "not_requested":
+      return (
+        <>
+          <UserEmptyPreview />
+          <SearchForm
+            value={inputValue}
+            onValueChange={setInputValue}
+            onSearchSubmit={onSearchSubmit}
           />
-          <button type="submit" className="name-form-btn">
-            Search
-          </button>
-        </form>
-      </>
-    );
+        </>
+      );
+
+    case "loading":
+      return (
+        <>
+          <Preloader />
+          <SearchForm
+            value={inputValue}
+            onValueChange={setInputValue}
+            onSearchSubmit={onSearchSubmit}
+          />
+        </>
+      );
+
+    case "loaded":
+      return (
+        <>
+          <UserPreview user={state.user} />
+          <SearchForm
+            value={inputValue}
+            onValueChange={setInputValue}
+            onSearchSubmit={onSearchSubmit}
+          />
+        </>
+      );
+
+    case "error":
+      return (
+        <>
+          <UserError error={state.error} />
+          <SearchForm
+            value={inputValue}
+            onValueChange={setInputValue}
+            onSearchSubmit={onSearchSubmit}
+          />
+        </>
+      );
   }
-}
+};
 
 export default User;
