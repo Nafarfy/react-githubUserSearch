@@ -4,7 +4,7 @@ import { UserEmptyPreview, UserError, UserPreview } from "./userPreviews/UserPre
 import { SearchForm } from "./searchForm/SearchForm";
 import { Preloader } from "./preloader/Preloader";
 
-const User = () => {
+export const User = () => {
   const [state, setState] = useState({
     type: "not_requested",
   });
@@ -58,6 +58,7 @@ const User = () => {
             value={inputValue}
             onValueChange={setInputValue}
             onSearchSubmit={onSearchSubmit}
+            disabled
           />
         </>
       );
@@ -85,7 +86,7 @@ const User = () => {
           />
         </>
       );
+    default:
+      return;
   }
 };
-
-export default User;

@@ -1,4 +1,4 @@
-export const SearchForm = ({ value, onValueChange, onSearchSubmit }) => {
+export const SearchForm = ({ value, onValueChange, onSearchSubmit, disabled }) => {
   return (
     <form
       className="name-form"
@@ -11,12 +11,12 @@ export const SearchForm = ({ value, onValueChange, onSearchSubmit }) => {
         type="text"
         value={value}
         onChange={(e) => {
-          onValueChange(e.target.value);
+          onValueChange(e.target.value.trim());
         }}
         className="name-form-input"
         placeholder="Any GitHub User"
       />
-      <button type="submit" className="name-form-btn">
+      <button type="submit" disabled={disabled} className="name-form-btn">
         Search
       </button>
     </form>
